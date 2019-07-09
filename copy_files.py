@@ -7,7 +7,7 @@ from tkinter import *
 def copy_files(country_input):
     src_path_1 = '//eutct.internal.towerswatson.com/nonclients/EMEADDU/Documents/2019/Data_Collection_Worksheets_by_Company/'
     dest_path_1 = '//eutct.internal.towerswatson.com/nonclients/GECATAnalysis'
-    dest_path_2= '/Documents/2019/LTI_Valuations/Test'
+    dest_path_2= '/Documents/2019/LTI_Valuations'
 
     country = country_input.capitalize()
 
