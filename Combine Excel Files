@@ -7,15 +7,18 @@ import pandas as pd
 import numpy as np
 import glob
 
-all_data=pd.DataFrame()
-for f in glob.glob(r'C:\Users\apoor965\Desktop\Share_Prices\test\*.xlsx'):
-    df = pd.read_excel(f)
-    all_data = all_data.append(df,ignore_index=True)
-    
-    
-    
-    
-    
-writer=pd.ExcelWriter(r'C:\Users\apoor965\Desktop\Share_Prices\test\collected_data.xlsx', engine='xlsxwriter')
-all_data.to_excel(writer, sheet_name='Sheet1')
-writer.save()
+# read them in
+excels = [pd.ExcelFile(name) for name in glob.glob(r'C:\Users\apoor965\Desktop\Data Exports\*.xlsx')]
+
+# turn them into dataframes
+frames = [x.parse(x.sheet_names[1], header=None,index_col=None) for x in excels]
+
+# delete the first row for all frames except the first
+# i.e. remove the header row -- assumes it's the first
+frames[20:] = [df[20:] for df in frames[20:]]
+
+# concatenate them..
+combined = pd.concat(frames)
+
+# write it out
+combined.to_excel(r"C:\Users\apoor965\Desktop\Data Exports\collected_data.xlsx", header=False, index=False)
